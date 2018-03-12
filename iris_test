@@ -11,7 +11,16 @@ from sklearn.preprocessing import StandardScaler
 
 iris=datasets.load_iris()
 data=iris.data
-label=iris.target
+labels=iris.target
 mlp=MLPClassifier(random_state=1)
-mlp.fit(data,label)
-pred=mlp.predict(data)
+data_train,data_test,labels_train,labels_test=train_test_split(data,labels,test_size=0.5,random_state=1)
+scaler=StandardScaler()
+scaler.fit(data)
+data_train_std=scaler.transform(data_train)
+data_test_std=scaler.transform(data_test)
+data_train,data_test=data_train_std,data_test_std
+mlp.fit(data_train,labels_train)
+pred=mlp.predict(data_test)
+print('Misclassified samples:%d'%(labels_test!=pred).sum())
+print('Accuracy%.2f'%(accuracy_score(labels_test,pred)))
+

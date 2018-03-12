@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar 12 23:09:38 2018
+
+@author: unrec
+"""
+from sklearn import datasets
+from sklearn.neural_network.multilayer_perceptron import MLPClassifier
+from sklearn.cross_validation import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+iris=datasets.load_iris()
+data=iris.data
+label=iris.target
+mlp=MLPClassifier(random_state=1)
+mlp.fit(data,label)
+pred=mlp.predict(data)
